@@ -12,6 +12,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
       \| endif
 
 call plug#begin(stdpath('config') . '/plugged')
+Plug 'ludovicchabant/vim-gutentags' " Automatic tag management
 Plug 'tpope/vim-fugitive' " Git integration
 Plug 'tpope/vim-commentary' " `gc` to comment visual regions/lines
 Plug 'tpope/vim-surround' " Surround selections with anything using `S`
