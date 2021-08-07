@@ -21,6 +21,9 @@ Plug 'tpope/vim-sleuth' " Auto-detect indent style
 
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'} " Better syntax highlighting
 
+Plug 'nvim-lua/plenary.nvim' " Needed by lewis6991/gitsigns.nvim
+Plug 'lewis6991/gitsigns.nvim' " Git indicators in signcolumn
+
 Plug 'folke/tokyonight.nvim' " Theme
 call plug#end()
 
@@ -101,4 +104,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
+" lewis6991/gitsigns.nvim
+lua require('gitsigns').setup()
 
