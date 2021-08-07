@@ -19,6 +19,8 @@ Plug 'tpope/vim-surround' " Surround selections with anything using `S`
 Plug 'tpope/vim-repeat' " Make . work with more motions
 Plug 'tpope/vim-sleuth' " Auto-detect indent style
 
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'} " Better syntax highlighting
+
 Plug 'folke/tokyonight.nvim' " Theme
 call plug#end()
 
@@ -86,4 +88,17 @@ set termguicolors
 
 let g:tokyonight_style = "night"
 colorscheme tokyonight
+
+" nvim-treesitter/nvim-treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+}
+EOF
 
