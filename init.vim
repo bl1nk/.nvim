@@ -87,8 +87,14 @@ set splitright
 set wildignore+=node_modules/**,.*.swp,.git/**
 
 " Exit insert mode with fd and jk
-imap fd <Esc>
-imap jk <Esc>
+inoremap fd <Esc>
+inoremap jk <Esc>
+tnoremap <Esc> <C-\><C-n>
+
+" Exit terminal with fd and jk
+tnoremap fd <C-\><C-n>
+tnoremap jk <C-\><C-n>
+
 
 " Theme
 set termguicolors
