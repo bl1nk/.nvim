@@ -95,6 +95,19 @@ tnoremap <Esc> <C-\><C-n>
 tnoremap fd <C-\><C-n>
 tnoremap jk <C-\><C-n>
 
+" Open terminal with <leader>t
+nnoremap <Leader>t :terminal<cr>
+" Split terminal with <leader>T
+nnoremap <Leader>T :split +te<cr>
+augroup neovim_terminal
+  autocmd!
+  " Enter Terminal-mode (insert) automatically
+  autocmd TermOpen * startinsert
+  " Disable number lines on terminal buffers
+  autocmd TermOpen * :set nonumber norelativenumber
+  " C-c works in normal mode
+  autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
+augroup END
 
 " Theme
 set termguicolors
