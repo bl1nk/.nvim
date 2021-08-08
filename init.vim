@@ -115,6 +115,10 @@ set termguicolors
 let g:tokyonight_style = "night"
 colorscheme tokyonight
 
+" Show trailing whitespace
+hi EoLSpace ctermbg=8 guibg=#292e42
+match EoLSpace /\s\+$/
+
 " nvim-treesitter/nvim-treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
