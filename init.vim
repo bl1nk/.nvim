@@ -36,6 +36,7 @@ set inccommand=nosplit
 
 " Add padding to cursor position
 set scrolloff=10
+set sidescrolloff=10
 
 " Do not wrap long lines
 set nowrap
