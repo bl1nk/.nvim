@@ -67,10 +67,10 @@ set signcolumn=yes
 set updatetime=250
 
 " Transparent floating windows
-set winblend=15
+set winblend=5
 
 " Transparent popup-menu
-set pumblend=15
+set pumblend=5
 
 " Popup-menu width and height
 set pumwidth=20
