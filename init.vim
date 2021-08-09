@@ -116,6 +116,9 @@ colorscheme tokyonight
 hi EoLSpace ctermbg=8 guibg=#292e42
 match EoLSpace /\s\+$/
 
+" Highlight yanked areas
+au TextYankPost * silent! lua require'vim.highlight'.on_yank()
+
 " nvim-treesitter/nvim-treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
