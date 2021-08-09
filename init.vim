@@ -122,7 +122,27 @@ au TextYankPost * silent! lua require'vim.highlight'.on_yank()
 " nvim-treesitter/nvim-treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {
+      "bash", "fish",
+      "c", "cpp",
+      "css", "scss",
+      "dockerfile",
+      "go", "gomod",
+      "hcl",
+      "html",
+      "java",
+      "javascript", "svelte", "typescript", "tsx",
+      "jsdoc",
+      "json", "jsonc", "toml", "yaml",
+      "kotlin",
+      "ledger",
+      "lua",
+      "nix",
+      "php",
+      "python",
+      "regex",
+      "rust",
+    }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
     enable = true,
   },
