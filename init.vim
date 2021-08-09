@@ -18,16 +18,12 @@ Plug 'tpope/vim-commentary' " `gc` to comment visual regions/lines
 Plug 'tpope/vim-surround' " Surround selections with anything using `S`
 Plug 'tpope/vim-repeat' " Make . work with more motions
 Plug 'tpope/vim-sleuth' " Auto-detect indent style
-
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'} " Better syntax highlighting
-
 Plug 'nvim-lua/plenary.nvim' " Needed by lewis6991/gitsigns.nvim
 Plug 'lewis6991/gitsigns.nvim' " Git indicators in signcolumn
-
 Plug 'neovim/nvim-lspconfig' " LSP support
 Plug 'hrsh7th/nvim-compe' " Autocompletion
 Plug 'L3MON4D3/LuaSnip' " Snippets
-
 Plug 'folke/tokyonight.nvim' " Theme
 call plug#end()
 
