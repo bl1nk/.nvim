@@ -29,8 +29,9 @@ map("n", "<tab>", "<cmd>bn<cr>",opts)
 map("n", "<S-tab>", "<cmd>bp<cr>",opts)
 
 -- open terminal with <leader>t
-map("n", "<leader>ts", ":split +te<cr>", opts)
-map("n", "<leader>tv", ":vsplit +te<cr>", opts)
+map("n", "<leader>tv", "<cmd>Terminal<cr>", opts)
+map("n", "<leader>ts", "<cmd>split +te<cr>", opts)
+map("n", "<leader>tv", "<cmd>vsplit +te<cr>", opts)
 vim.cmd [[
 augroup neovim_terminal
   autocmd!
