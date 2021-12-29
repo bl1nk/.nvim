@@ -6,7 +6,7 @@ if not ok then return end
 
 telescope.setup {
   defaults = {
-    path_display = { "smart" },
+    path_display = { "shorten" },
     sorting_strategy = "ascending",
     layout_strategy = "center",
     layout_config = {
