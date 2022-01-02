@@ -1,9 +1,9 @@
-require "user.options"
-require "user.keymaps"
-require "user.plugins"
-require "user.colorscheme"
+require "x.options"
+require "x.keymaps"
+require "x.plugins"
+require "x.colorscheme"
 
-require "user.gitsigns"
-require "user.telescope"
-require "user.cmp"
+require "x.gitsigns"
+require "x.telescope"
+require "x.cmp"
 
