@@ -43,7 +43,7 @@ local options = {
   -- highlight the current line
   cursorline = true,
   -- always show the sign column, otherwise it would shift the text each time
-  signcolumn = "number",
+  signcolumn = "yes",
   wrap = false,
   scrolloff = 8,
   sidescrolloff = 8,
@@ -52,6 +52,8 @@ local options = {
 
   listchars = { trail='·', eol='↲', tab='▸ ' },
   list = true,
+
+  completeopt = { "menu", "menuone", "noselect" },
 
   -- Pop up menu
   winblend = 5,

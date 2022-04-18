@@ -41,32 +41,50 @@ return require('packer').startup(function(use)
   }
 
   use {
-    'nvim-telescope/telescope.nvim',
+    'junegunn/fzf.vim',
     requires = {
+      {'junegunn/fzf', run = 'fzf#install'},
+      {"folke/which-key.nvim"},
       {'nvim-lua/popup.nvim'},
       {'nvim-lua/plenary.nvim'},
-      {"folke/which-key.nvim"},
     },
     config = function()
-      require('telescope').setup {
-        extensions = {
-          -- TODO: enable fzf or fzy
-          -- fzf = {
-          --   fuzzy = true,                    -- false will only do exact matching
-          --   override_generic_sorter = true,  -- override the generic sorter
-          --   override_file_sorter = true,     -- override the file sorter
-          --   case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-          -- },
-        },
-      }
-
       require('which-key').register({
-        f = { "<cmd>Telescope find_files<cr>", "Find File" },
-        b = { "<cmd>Telescope buffers<cr>", "Switch buffers" },
+        f = { "<cmd>Files<cr>", "Find File" },
+        b = { "<cmd>Buffers<cr>", "Switch buffers" },
       },
       { prefix = "<leader>", noremap = true })
     end
   }
+
+  -- TODO: enable again
+  -- use {
+  --   'nvim-telescope/telescope.nvim',
+  --   requires = {
+  --     {'nvim-lua/popup.nvim'},
+  --     {'nvim-lua/plenary.nvim'},
+  --     {"folke/which-key.nvim"},
+  --   },
+  --   config = function()
+  --     require('telescope').setup {
+  --       extensions = {
+  --         -- TODO: enable fzf or fzy
+  --         -- fzf = {
+  --         --   fuzzy = true,                    -- false will only do exact matching
+  --         --   override_generic_sorter = true,  -- override the generic sorter
+  --         --   override_file_sorter = true,     -- override the file sorter
+  --         --   case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+  --         -- },
+  --       },
+  --     }
+  --
+  --     require('which-key').register({
+  --       f = { "<cmd>Telescope find_files<cr>", "Find File" },
+  --       b = { "<cmd>Telescope buffers<cr>", "Switch buffers" },
+  --     },
+  --     { prefix = "<leader>", noremap = true })
+  --   end
+  -- }
 
   use {
     'projekt0n/github-nvim-theme',
@@ -85,24 +103,32 @@ return require('packer').startup(function(use)
     config = function()
       require('lualine').setup {
         options = {
-          -- section_separators = { left = '', right = '' },
-          -- component_separators = { left = '', right = '' },
-          section_separators = '',
+          -- Powerline
+          section_separators = { left = '', right = ''},
+          component_separators = { left = '', right = ''},
+
+          -- Disabled & Simple
+          -- section_separators = '',
           -- component_separators = '|',
-          component_separators = '⁝',
-          -- component_separators = '┆',
-          icons_enabled = false,
+
+          -- Slant
+          -- component_separators = { left = '', right = '' },
+          -- section_separators = { left = '', right = '' },
+
+          icons_enabled = true,
           theme = 'auto',
         },
+        extensions = {'fugitive','quickfix'},
         sections = {
           lualine_a = {
             {
               'mode',
-              fmt = function(str)
-                return str:sub(1,1)
-              end
+              -- fmt = function(str)
+              --   return str:sub(1,1)
+              -- end
             }
           },
+          lualine_b = {'branch'},
           lualine_c = {
             {
               'filename',
@@ -110,21 +136,15 @@ return require('packer').startup(function(use)
               path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path
             }
           },
-          lualine_x = {'encoding', 'filetype'},
-          lualine_y = {'progress'},
-          lualine_z = {'location'},
+          lualine_x = {'location', 'progress', 'filetype'},
+          lualine_y = {},
+          lualine_z = {},
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {
-            {
-              'filename',
-              file_status = true, -- displays file status (readonly status, modified status)
-              path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path
-            },
-          },
-          lualine_x = {'location'},
+          lualine_c = {{ 'filename', file_status = true, path = 1 }},
+          lualine_x = {'location','progress', 'filetype'},
           lualine_y = {},
           lualine_z = {}
         },
@@ -178,10 +198,14 @@ return require('packer').startup(function(use)
       table.insert(runtime_path, "lua/?.lua")
       table.insert(runtime_path, "lua/?/init.lua")
 
+      -- from nvim-cmp
+      local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
       local servers = { 'gopls', 'rnix', 'sumneko_lua' }
       for _,lsp in pairs(servers) do
         require('lspconfig')[lsp].setup{
           on_attach = on_attach,
+          capabilities = capabilities,
           flags = {
             debounce_text_changes = 150,
           },
@@ -199,6 +223,59 @@ return require('packer').startup(function(use)
         }
       end
     end
+  }
+
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      'neovim/nvim-lspconfig',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+
+      -- vsnip
+      'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip'
+    },
+    config = function()
+      local cmp = require'cmp'
+
+      cmp.setup({
+        snippet = {
+          expand = function(args) vim.fn["vsnip#anonymous"](args.body) end,
+        },
+        window = {},
+        mapping = cmp.mapping.preset.insert({
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        }),
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'vsnip' }, -- For vsnip users.
+        }, {
+          { name = 'buffer' },
+        })
+      })
+
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
+      })
+
+      cmp.setup.cmdline('/', {
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+    end,
   }
 
   use {
