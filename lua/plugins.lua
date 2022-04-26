@@ -279,6 +279,26 @@ return require('packer').startup(function(use)
   }
 
   use {
+    "preservim/vim-markdown",
+    requires = {
+      {"godlygeek/tabular"},
+    },
+    config = function()
+      local opts = {
+        vim_markdown_math = 1,
+        vim_markdown_frontmatter = 1,
+        vim_markdown_toml_frontmatter = 1,
+        vim_markdown_json_frontmatter = 1,
+        vim_markdown_new_list_item_indent = 2,
+        vim_markdown_folding_disabled = 1
+      };
+      for k,v in pairs(opts) do
+        vim.g[k]=v
+      end
+    end
+  }
+
+  use {
     "folke/which-key.nvim",
     config = function()
       local wk = require('which-key')
